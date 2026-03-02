@@ -1,0 +1,6 @@
+# Allow access to PDF files
+<FilesMatch "\.(pdf)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
