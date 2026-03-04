@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                 </div>
                 <nav class="hidden md:flex gap-6 items-center">
-                    <a href="index.php" class="text-gray-700 hover:text-primary-600 transition">Beranda</a>
+                    <a href="index.php " class="text-gray-700 hover:text-primary-600 transition">Beranda</a>
                 </nav>
             </div>
         </div>

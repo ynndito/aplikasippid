@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/ppid/koneksi.php';
+include __DIR__ . '/koneksi.php';
 
 // Ambil parameter search dan filter
 $search = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_GET['search']) : '';
@@ -89,7 +89,11 @@ $tahun_result = mysqli_query($conn, $tahun_query);
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-lg bg-primary-600 flex items-center justify-center text-white font-bold">KPU</div>
+                    <img 
+        src="assets/img/logo-kpu.png" 
+        alt="Logo KPU"
+        class="w-9 h-9 object-contain"
+    />
                     <div class="flex flex-col">
                         <span class="font-bold text-gray-800 text-sm leading-tight">KPU KOTA PROBOLINGGO</span>
                         <span class="text-xs text-gray-600">Pejabat Pengelola Informasi dan Dokumentasi</span>
@@ -101,7 +105,7 @@ $tahun_result = mysqli_query($conn, $tahun_query);
                     <button onclick="showSection('daftar')" class="text-gray-700 hover:text-primary-600 transition">Daftar Informasi</button>
                     <button onclick="showSection('dokumen')" class="text-gray-700 hover:text-primary-600 transition">Dokumen Publik</button>
                     <button onclick="showSection('permohonan')" class="text-gray-700 hover:text-primary-600 transition">Ajukan Permohonan</button>
-                    <a href="ppid/login.php" class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition">Login</a>
+                    <a href="login.php" class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition">Login</a>
                 </nav>
                 <button onclick="toggleMobileMenu()" class="md:hidden bg-gray-100 p-2 rounded-lg">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -116,7 +120,7 @@ $tahun_result = mysqli_query($conn, $tahun_query);
                 <button onclick="showSection('daftar')" class="block w-full text-left py-2 px-4 hover:bg-gray-100">Daftar Informasi</button>
                 <button onclick="showSection('dokumen')" class="block w-full text-left py-2 px-4 hover:bg-gray-100">Dokumen Publik</button>
                 <button onclick="showSection('permohonan')" class="block w-full text-left py-2 px-4 hover:bg-gray-100">Ajukan Permohonan</button>
-                <a href="ppid/login.php" class="block w-full text-left py-2 px-4 bg-primary-600 text-white rounded-lg mt-2">Login</a>
+                <a href="login.php" class="block w-full text-left py-2 px-4 bg-primary-600 text-white rounded-lg mt-2">Login</a>
             </div>
         </div>
     </header>
@@ -183,7 +187,7 @@ $tahun_result = mysqli_query($conn, $tahun_query);
                         while ($row = mysqli_fetch_assoc($result_popular)) {
                             $color = $color_classes[$i % 3];
                             ?>
-                            <div class="bg-white rounded-2xl p-6 soft-shadow hover:shadow-lg transition cursor-pointer" onclick="window.location.href='ppid/detail.php?id=<?php echo $row['id']; ?>'">
+                            <div class="bg-white rounded-2xl p-6 soft-shadow hover:shadow-lg transition cursor-pointer" onclick="window.location.href='detail.php?id=<?php echo $row['id']; ?>'">
                                 <div class="<?php echo $color['bg']; ?> w-12 h-12 rounded-xl flex items-center justify-center mb-4">
                                     <svg class="w-6 h-6 <?php echo $color['icon']; ?>" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 5.414l4 4v8.586a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"></path></svg>
                                 </div>
@@ -212,12 +216,12 @@ $tahun_result = mysqli_query($conn, $tahun_query);
                     if (mysqli_num_rows($result_latest) > 0) {
                         while ($row = mysqli_fetch_assoc($result_latest)) {
                             ?>
-                            <div class="bg-white rounded-2xl p-6 soft-shadow hover:shadow-lg transition flex items-center justify-between cursor-pointer" onclick="window.location.href='ppid/detail.php?id=<?php echo $row['id']; ?>'">
+                            <div class="bg-white rounded-2xl p-6 soft-shadow hover:shadow-lg transition flex items-center justify-between cursor-pointer" onclick="window.location.href='detail.php?id=<?php echo $row['id']; ?>'">
                                 <div>
                                     <h3 class="font-bold text-lg"><?php echo htmlspecialchars($row['judul']); ?></h3>
                                     <p class="text-gray-600 text-sm">Kategori: <?php echo htmlspecialchars($row['kategori']); ?> | Tanggal: <?php echo date('d F Y', strtotime($row['tanggal'])); ?></p>
                                 </div>
-                                <a href="ppid/detail.php?id=<?php echo $row['id']; ?>" class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700">Detail</a>
+                                <a href="detail.php?id=<?php echo $row['id']; ?>" class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700">Detail</a>
                             </div>
                             <?php
                         }
@@ -274,8 +278,8 @@ $tahun_result = mysqli_query($conn, $tahun_query);
                                         <td class="px-6 py-4"><?php echo htmlspecialchars($row['tahun']); ?></td>
                                         <td class="px-6 py-4"><?php echo date('d F Y', strtotime($row['tanggal'])); ?></td>
                                         <td class="px-6 py-4 text-center">
-                                            <a href="ppid/detail.php?id=<?php echo $row['id']; ?>" class="text-primary-600 hover:text-primary-700 font-semibold">Preview</a>
-                                            <a href="ppid/download.php?id=<?php echo $row['id']; ?>" class="text-gray-600 hover:text-gray-700 font-semibold ml-4">Download</a>
+                                            <a href="detail.php?id=<?php echo $row['id']; ?>" class="text-primary-600 hover:text-primary-700 font-semibold">Preview</a>
+                                            <a href="download.php?id=<?php echo $row['id']; ?>" class="text-gray-600 hover:text-gray-700 font-semibold ml-4">Download</a>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>
@@ -299,7 +303,7 @@ $tahun_result = mysqli_query($conn, $tahun_query);
                 if (mysqli_num_rows($result_all) > 0) {
                     while ($row = mysqli_fetch_assoc($result_all)) {
                         ?>
-                        <div class="bg-white rounded-2xl p-6 soft-shadow hover:shadow-lg transition cursor-pointer" onclick="window.location.href='ppid/detail.php?id=<?php echo $row['id']; ?>'">
+                        <div class="bg-white rounded-2xl p-6 soft-shadow hover:shadow-lg transition cursor-pointer" onclick="window.location.href='detail.php?id=<?php echo $row['id']; ?>'">
                             <div class="bg-primary-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
                                 <svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 5.414l4 4v8.586a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"></path></svg>
                             </div>
@@ -335,7 +339,7 @@ $tahun_result = mysqli_query($conn, $tahun_query);
                     </div>
                 <?php endif; ?>
 
-                <form method="POST" action="ppid/proses_permohonan.php">
+                <form method="POST" action="proses_permohonan.php">
                     <div class="mb-6">
                         <label class="block font-semibold mb-2">Nama Lengkap</label>
                         <input type="text" name="nama" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="Masukkan nama lengkap">
